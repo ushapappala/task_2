@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Web Project - Task 2</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+    }
+
+    .header {
+      background-color: #007BFF;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .main {
+      max-width: 700px;
+      margin: 30px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 0 20px;
+    }
+
+    .card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .card h2 {
+      margin-bottom: 15px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .submit-btn {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .submit-btn:hover {
+      background-color: #218838;
+    }
+
+    .add-btn {
+      background-color: #007BFF;
+      color: white;
+      width: auto;
+      padding: 8px 16px;
+      margin-left: 10px;
+    }
+
+    .add-btn:hover {
+      background-color: #0056b3;
+    }
+
+    #task-list li {
+      background: #eaeaea;
+      padding: 10px;
+      margin: 5px 0;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+      color: gray;
+    }
+
+    .todo-input-wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    #gallery img {
+      width: 150px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    @media (max-width: 700px) {
+      .todo-input-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .add-btn {
+        margin: 10px 0 0 0;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">My Web Project - Task 2</div>
+
+  <div class="main">
+    <!-- Contact Form -->
+    <div class="card">
+      <h2>Contact Me</h2>
+      <form id="contact-form">
+        <label>Name:</label>
+        <input type="text" id="name" required />
+        <label>Email:</label>
+        <input type="email" id="email" required />
+        <label>Message:</label>
+        <textarea id="message" required></textarea>
+        <button type="submit" class="submit-btn">Submit</button>
+      </form>
+    </div>
+
+    <!-- To-Do List -->
+    <div class="card">
+      <h2>To-Do List</h2>
+      <div class="todo-input-wrapper">
+        <input type="text" id="task-input" placeholder="Enter a task..." />
+        <button type="button" class="add-btn" onclick="addTask()">Add Task</button>
+      </div>
+      <ul id="task-list"></ul>
+    </div>
+
+    <!-- Image Gallery with Dog Photos -->
+    <!-- Image Gallery Section -->
+<div class="card">
+  <h2>Image Gallery</h2>
+  <div class="todo-input-wrapper">
+    <input type="text" id="img-url" placeholder="Enter image URL..." />
+    <button type="button" class="add-btn" onclick="addImage()">Add Image</button>
+  </div>
+  <div id="gallery" class="gallery">
+    <!-- Example images with your own image paths -->
+    <img src="images\dogimage1.jpg" alt="Dog Image">
+    <img src="images\dogimage2.jpg" alt="Dog Image">
+    <img src="images\dogimage3.jpeg" alt="Dog Image">
+    <!-- Additional images will be added dynamically -->
+  </div>
+</div>
+
+
+  <footer>© 2025 My Web Project</footer>
+
+  <script>
+    // Contact form validation
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!name || !email || !message) {
+        alert("All fields are required.");
+        e.preventDefault();
+      } else if (!/\S+@\S+\.\S+/.test(email)) {
+        alert("Please enter a valid email address.");
+        e.preventDefault();
+      }
+    });
+
+    // To-do list
+    function addTask() {
+      const input = document.getElementById('task-input');
+      const task = input.value.trim();
+
+      if (task) {
+        const li = document.createElement('li');
+        li.textContent = task;
+        li.onclick = () => li.remove();
+        document.getElementById('task-list').appendChild(li);
+        input.value = '';
+      } else {
+        alert("Please enter a task.");
+      }
+    }
+
+    // Image Gallery
+   function addImage() {
+  const url = document.getElementById('img-url').value.trim();
+  if (url) {
+    const img = document.createElement('img');
+    img.src = url;
+    img.alt = "Gallery Image";
+    img.onclick = () => img.remove(); // Remove image on click
+    document.getElementById('gallery').appendChild(img);
+    document.getElementById('img-url').value = ''; // Clear the input field
+  } else {
+    alert("Please enter a valid image URL.");
+  }
+}
+
+
+    
+  </script>
+</body>
+</html>
